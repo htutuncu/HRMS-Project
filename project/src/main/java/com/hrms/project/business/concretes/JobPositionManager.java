@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.hrms.project.business.abstracts.JobPositionService;
 import com.hrms.project.business.constants.Messages;
 import com.hrms.project.core.utilities.results.DataResult;
+import com.hrms.project.core.utilities.results.ErrorResult;
 import com.hrms.project.core.utilities.results.Result;
 import com.hrms.project.core.utilities.results.SuccessDataResult;
 import com.hrms.project.core.utilities.results.SuccessResult;
+import com.hrms.project.core.utilities.validators.JobPositionValidator;
 import com.hrms.project.dataAccess.abstracts.JobPositionDao;
 import com.hrms.project.entities.concretes.JobPosition;
 
@@ -18,6 +20,7 @@ import com.hrms.project.entities.concretes.JobPosition;
 public class JobPositionManager implements JobPositionService {
 	
 	private JobPositionDao jobPositionDao;
+	private JobPositionValidator jobPositionValidator;
 	
 	
 	@Autowired
@@ -46,6 +49,12 @@ public class JobPositionManager implements JobPositionService {
 
 	@Override
 	public Result add(JobPosition jobPosition) {
+		jobPositionValidator = new JobPositionValidator(jobPosition, jobPositionDao);
+		Result result = jobPositionValidator.isValid();
+		if( result instanceof ErrorResult)
+			return result;
+		
+		
 		this.jobPositionDao.save(jobPosition);
 		return new SuccessResult(Messages.JOB_POSITION_SUCCESS_ADDED);
 	}
