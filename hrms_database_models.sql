@@ -3,39 +3,36 @@
 BEGIN;
 
 
-CREATE TABLE public."Employers"
+CREATE TABLE public.cities
+(
+    city_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    city_name character varying NOT NULL,
+    PRIMARY KEY (city_id)
+);
+
+CREATE TABLE public.employers
 (
     id integer NOT NULL,
-    company_name character varying(100),
-    phone character varying(15),
-    website character varying(100),
+    company_name character varying(50),
+    phone character varying(12),
+    website character varying(50),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE public."Jobseekers"
+CREATE TABLE public.jobadvertisements
 (
-    id integer NOT NULL,
-    birth_date date,
-    first_name character varying(20),
-    last_name character varying(20),
-    national_identity character varying(11),
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    job_description character varying,
+    min_salary integer NOT NULL,
+    max_salary integer NOT NULL,
+    open_position_count integer,
+    is_active boolean,
+    employer_id integer,
+    job_position_id integer,
+    city_id integer,
+    last_date date,
+    creation_date date,
     PRIMARY KEY (id)
-);
-
-CREATE TABLE public."SystemPersonnel"
-(
-    id integer NOT NULL,
-    first_name character varying(20),
-    last_name character varying(20),
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE public."Users"
-(
-    "Id" integer NOT NULL,
-    "Mail" character varying(50),
-    "Password" character varying(50),
-    PRIMARY KEY ("Id")
 );
 
 CREATE TABLE public.jobpositions
@@ -45,21 +42,65 @@ CREATE TABLE public.jobpositions
     PRIMARY KEY (id)
 );
 
-ALTER TABLE public."Employers"
+CREATE TABLE public.jobseekers
+(
+    id integer NOT NULL,
+    first_name character varying(20),
+    last_name character varying(20),
+    birth_year integer,
+    national_identity character varying(11),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.systempersonnels
+(
+    id integer NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.users
+(
+    id integer NOT NULL,
+    mail character varying(50),
+    password character varying(50),
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE public.employers
     ADD FOREIGN KEY (id)
-    REFERENCES public."Users" ("Id")
+    REFERENCES public.users (id)
     NOT VALID;
 
 
-ALTER TABLE public."Jobseekers"
-    ADD FOREIGN KEY (id)
-    REFERENCES public."Users" ("Id")
+ALTER TABLE public.jobadvertisements
+    ADD FOREIGN KEY (city_id)
+    REFERENCES public.cities (city_id)
     NOT VALID;
 
 
-ALTER TABLE public."SystemPersonnel"
+ALTER TABLE public.jobadvertisements
+    ADD FOREIGN KEY (employer_id)
+    REFERENCES public.employers (id)
+    NOT VALID;
+
+
+ALTER TABLE public.jobadvertisements
+    ADD FOREIGN KEY (job_position_id)
+    REFERENCES public.jobpositions (id)
+    NOT VALID;
+
+
+ALTER TABLE public.jobseekers
     ADD FOREIGN KEY (id)
-    REFERENCES public."Users" ("Id")
+    REFERENCES public.users (id)
+    NOT VALID;
+
+
+ALTER TABLE public.systempersonnels
+    ADD FOREIGN KEY (id)
+    REFERENCES public.users (id)
     NOT VALID;
 
 END;
