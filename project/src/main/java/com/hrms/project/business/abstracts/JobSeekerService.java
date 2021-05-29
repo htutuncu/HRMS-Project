@@ -10,4 +10,6 @@ import com.hrms.project.entities.concretes.JobSeeker;
 public interface JobSeekerService {
 	DataResult<List<JobSeeker>> getAll();
 	Result add(JobSeeker jobSeeker);
+	DataResult<JobSeeker> findByNationalIdentity(String nationalIdentity);
+	
 }

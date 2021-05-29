@@ -6,4 +6,5 @@ import com.hrms.project.entities.concretes.Employer;
 
 public interface EmployerDao extends JpaRepository<Employer, Integer> {
 	boolean existsByMail(String mail);
+	Employer findByCompanyName(String companyName);
 }

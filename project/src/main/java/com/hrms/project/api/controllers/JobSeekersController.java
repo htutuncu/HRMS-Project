@@ -31,11 +31,15 @@ public class JobSeekersController {
 		return this.jobSeekerService.getAll();
 	}
 	
+	@GetMapping("/getByIdentity")
+	public DataResult<JobSeeker> getByIdentity(String nationalIdentity){
+		return this.jobSeekerService.findByNationalIdentity(nationalIdentity);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobSeeker jobSeeker) {
-		
-		
-		
 		return this.jobSeekerService.add(jobSeeker);
 	}
+	
+	
 }

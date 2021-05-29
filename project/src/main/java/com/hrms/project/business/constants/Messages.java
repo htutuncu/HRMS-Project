@@ -22,6 +22,8 @@ public class Messages {
     public static String JOB_SEEKER_ERROR_YEAR_OF_BIRTH_IS_BLANK = "Job seeker's year of birth is blank";
     public static String JOB_SEEKER_ERROR_IDENTITY_NUMBER_ALREADY_EXISTS = "Job seeker's identity number already exists";
     public static String JOB_SEEKER_NOT_VALID_PERSON = "Job seeker not validated from Mernis.";
+    public static String JOB_SEEKER_NOT_FOUND = "Job seeker not found.";
+    public static String JOB_SEEKER_SUCCESS_FOUND = "Job seeker found.";
 
     //Employer
     public static String EMPLOYER_SUCCESS_DATA_LISTED = "Employers listed.";

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hrms.project.business.abstracts.JobPositionService;
 import com.hrms.project.business.constants.Messages;
 import com.hrms.project.core.utilities.results.DataResult;
+import com.hrms.project.core.utilities.results.ErrorDataResult;
 import com.hrms.project.core.utilities.results.ErrorResult;
 import com.hrms.project.core.utilities.results.Result;
 import com.hrms.project.core.utilities.results.SuccessDataResult;
@@ -40,10 +41,7 @@ public class JobPositionManager implements JobPositionService {
 				
 	}
 	
-	@Override
-	public DataResult<List<JobPosition>> findByJobNameIs(String jobName) {
-		return new SuccessDataResult<>(this.jobPositionDao.findByJobNameIs(jobName));
-	}
+	
 
 
 
@@ -57,6 +55,32 @@ public class JobPositionManager implements JobPositionService {
 		
 		this.jobPositionDao.save(jobPosition);
 		return new SuccessResult(Messages.JOB_POSITION_SUCCESS_ADDED);
+	}
+
+
+
+	@Override
+	public DataResult<JobPosition> getById(int id) {
+		JobPosition jobPosition = jobPositionDao.findById(id);
+		if(jobPosition == null)
+			return new ErrorDataResult<JobPosition>();
+		return new SuccessDataResult<JobPosition>(jobPosition);
+	}
+
+
+
+	@Override
+	public Result update(JobPosition jobPosition) {
+		this.jobPositionDao.save(jobPosition);
+		return new SuccessResult("Job position updated.");
+	}
+
+
+
+	@Override
+	public Result delete(JobPosition jobPosition) {
+		this.jobPositionDao.delete(jobPosition);
+		return new SuccessResult("Job position deleted.");
 	}
 
 }

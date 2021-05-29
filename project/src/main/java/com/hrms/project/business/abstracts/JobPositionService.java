@@ -8,6 +8,9 @@ import com.hrms.project.entities.concretes.JobPosition;
 
 public interface JobPositionService {
 	DataResult<List<JobPosition>> getAll();
-	DataResult<List<JobPosition>>  findByJobNameIs(String jobName);
+	
 	Result add(JobPosition jobPosition);
+	Result update(JobPosition jobPosition);
+	Result delete(JobPosition jobPosition);
+	DataResult<JobPosition> getById(int id);
 }

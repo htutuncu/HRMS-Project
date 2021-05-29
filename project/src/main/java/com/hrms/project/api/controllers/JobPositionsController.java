@@ -30,13 +30,21 @@ public class JobPositionsController {
 		return this.jobPositionService.getAll();
 	}
 	
-	@PostMapping("/findbypositionis")
-	public DataResult<List<JobPosition>> findByJobNameIs(@RequestBody String jobName){
-		return this.jobPositionService.findByJobNameIs(jobName.trim());
-	}
+	
 	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobPosition jobPosition) {
 		return this.jobPositionService.add(jobPosition);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody JobPosition jobPosition) {
+		return this.jobPositionService.update(jobPosition);
+	}
+	
+	@PostMapping("/delete")
+	public Result delete(@RequestBody JobPosition jobPosition) {
+		return this.jobPositionService.delete(jobPosition);
+	}
+	
 }

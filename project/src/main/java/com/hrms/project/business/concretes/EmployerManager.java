@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hrms.project.business.abstracts.EmployerService;
 import com.hrms.project.business.constants.Messages;
 import com.hrms.project.core.utilities.results.DataResult;
+import com.hrms.project.core.utilities.results.ErrorDataResult;
 import com.hrms.project.core.utilities.results.ErrorResult;
 import com.hrms.project.core.utilities.results.Result;
 import com.hrms.project.core.utilities.results.SuccessDataResult;
@@ -46,5 +47,19 @@ public class EmployerManager implements EmployerService{
 		
 		this.employerDao.save(employer);
 		return new SuccessResult(Messages.EMPLOYER_SUCCESS_ADDED);
+	}
+
+	@Override
+	public DataResult<Employer> getById(int id) {
+		Employer employer = employerDao.getOne(id);
+		if(employer==null) 
+			return new ErrorDataResult<Employer>();
+		return new SuccessDataResult<Employer>(employer);
+	}
+
+	@Override
+	public DataResult<Employer> getByCompanyName(String companyName) {
+		
+		return new SuccessDataResult<Employer>(this.employerDao.findByCompanyName(companyName));
 	}
 }
