@@ -1,7 +1,5 @@
 package com.hrms.project.entities.concretes;
 
-
-
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;

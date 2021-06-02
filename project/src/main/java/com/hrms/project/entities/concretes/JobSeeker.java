@@ -1,7 +1,9 @@
 package com.hrms.project.entities.concretes;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -31,4 +33,6 @@ public class JobSeeker extends User{
 	
 	@Column(name="birth_year")
 	private int birthYear;
+	
+	
 }
