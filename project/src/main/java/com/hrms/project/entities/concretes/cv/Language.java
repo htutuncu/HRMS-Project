@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Language {
 	
 	@Column(name = "language_level")
 	private int languageLevel;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "cv_id")

@@ -7,10 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hrms.project.entities.concretes.JobSeeker;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +33,10 @@ public class Cv {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cvId;
 	
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private JobSeeker jobSeeker;
+	
 	@Column(name = "github_link")
 	private String githubLink;
 	
@@ -41,15 +49,19 @@ public class Cv {
 	@Column(name = "photo_link")
 	private String photoLink;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cv")
 	private List<EducationInfo> educationInfos;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cv")
 	private List<WorkExperience> workExperiences;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cv")
 	private List<Language> languages;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cv")
 	private List<Technology> technologies;
 }

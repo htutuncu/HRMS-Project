@@ -26,7 +26,7 @@ public class EducationInfo {
 	@Column(name = "education_info_id")
 	private int educationInfoId;
 	
-	@Column(name = "start_date")
+	@Column(name = "start_date",nullable = true)
 	private LocalDate startDate;
 	
 	@Column(name = "end_date", nullable = true)
