@@ -10,6 +10,28 @@ CREATE TABLE public.cities
     PRIMARY KEY (city_id)
 );
 
+CREATE TABLE public.cvs
+(
+    cv_id integer NOT NULL,
+    cover_letter character varying(255),
+    github_link character varying(255),
+    linkedin_link character varying(255),
+    photo_link character varying(255),
+    id integer,
+    PRIMARY KEY (cv_id)
+);
+
+CREATE TABLE public.educationinfos
+(
+    education_info_id integer NOT NULL,
+    end_date date,
+    start_date date,
+    cv_id integer,
+    university_id integer,
+    university_department_id integer,
+    PRIMARY KEY (education_info_id)
+);
+
 CREATE TABLE public.employers
 (
     id integer NOT NULL,
@@ -49,7 +71,17 @@ CREATE TABLE public.jobseekers
     last_name character varying(20),
     birth_year integer,
     national_identity character varying(11),
+    cv_id integer,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE public.languages
+(
+    language_id integer NOT NULL,
+    language_level integer,
+    language_name character varying(255),
+    cv_id integer,
+    PRIMARY KEY (language_id)
 );
 
 CREATE TABLE public.systempersonnels
@@ -60,6 +92,28 @@ CREATE TABLE public.systempersonnels
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.technologies
+(
+    technology_id integer NOT NULL,
+    tech_name character varying(255),
+    cv_id integer,
+    PRIMARY KEY (technology_id)
+);
+
+CREATE TABLE public.universities
+(
+    university_id integer NOT NULL,
+    university_name character varying(255),
+    PRIMARY KEY (university_id)
+);
+
+CREATE TABLE public.university_departments
+(
+    university_department_id integer NOT NULL,
+    department_name character varying(255),
+    PRIMARY KEY (university_department_id)
+);
+
 CREATE TABLE public.users
 (
     id integer NOT NULL,
@@ -67,6 +121,41 @@ CREATE TABLE public.users
     password character varying(50),
     PRIMARY KEY (id)
 );
+
+CREATE TABLE public.workexperiences
+(
+    work_experience_id integer NOT NULL,
+    company_name character varying(255),
+    end_date date,
+    start_date date,
+    work_position character varying(255),
+    cv_id integer,
+    PRIMARY KEY (work_experience_id)
+);
+
+ALTER TABLE public.cvs
+    ADD FOREIGN KEY (id)
+    REFERENCES public.jobseekers (id)
+    NOT VALID;
+
+
+ALTER TABLE public.educationinfos
+    ADD FOREIGN KEY (university_department_id)
+    REFERENCES public.university_departments (university_department_id)
+    NOT VALID;
+
+
+ALTER TABLE public.educationinfos
+    ADD FOREIGN KEY (cv_id)
+    REFERENCES public.cvs (cv_id)
+    NOT VALID;
+
+
+ALTER TABLE public.educationinfos
+    ADD FOREIGN KEY (university_id)
+    REFERENCES public.universities (university_id)
+    NOT VALID;
+
 
 ALTER TABLE public.employers
     ADD FOREIGN KEY (id)
@@ -98,9 +187,27 @@ ALTER TABLE public.jobseekers
     NOT VALID;
 
 
+ALTER TABLE public.languages
+    ADD FOREIGN KEY (cv_id)
+    REFERENCES public.cvs (cv_id)
+    NOT VALID;
+
+
 ALTER TABLE public.systempersonnels
     ADD FOREIGN KEY (id)
     REFERENCES public.users (id)
+    NOT VALID;
+
+
+ALTER TABLE public.technologies
+    ADD FOREIGN KEY (cv_id)
+    REFERENCES public.cvs (cv_id)
+    NOT VALID;
+
+
+ALTER TABLE public.workexperiences
+    ADD FOREIGN KEY (cv_id)
+    REFERENCES public.cvs (cv_id)
     NOT VALID;
 
 END;
