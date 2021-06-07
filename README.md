@@ -1,5 +1,5 @@
 # HRMS-Project
-## Human Resources Management System Back End application with Java, Spring Boot, RESTful services & PostgreSQL.
+## Human Resources Management System Back End application with Java, Spring Boot, Hibernate, JpaRepository, RESTful services & PostgreSQL.
 
 
 ## Swagger UI 
